@@ -11,5 +11,6 @@ namespace ClassifiedAdvertising.Data.Repositories
         Task Create(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        Task SaveChanges();
     }
 }

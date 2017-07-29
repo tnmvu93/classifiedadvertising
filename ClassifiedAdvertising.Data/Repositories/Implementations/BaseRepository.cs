@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ClassifiedAdvertising.Data.Repositories
+namespace ClassifiedAdvertising.Data.Repositories.Implementations
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly ClassifiedAdvertisingDbContext _dbContext;
+        protected readonly ClassifiedAdvertisingDbContext _dbContext;
 
         public BaseRepository(ClassifiedAdvertisingDbContext dbContext)
         {
@@ -39,6 +39,11 @@ namespace ClassifiedAdvertising.Data.Repositories
         public void Update(TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity);
+        }
+
+        public async Task SaveChanges()
+        {
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
