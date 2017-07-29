@@ -14,9 +14,9 @@ namespace ClassifiedAdvertising.Data.Repositories.Implementations
             _dbContext = dbContext;
         }
 
-        public async Task Create(TEntity entity)
+        public void Create(TEntity entity)
         {
-            await _dbContext.Set<TEntity>().AddAsync(entity);
+            _dbContext.Set<TEntity>().AddAsync(entity);
         }
 
         public void Delete(TEntity entity)

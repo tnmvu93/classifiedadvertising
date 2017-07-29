@@ -8,7 +8,7 @@ namespace ClassifiedAdvertising.Data.Repositories
     {
         Task<TEntity> GetById(int id);
         IQueryable<TEntity> GetAll();
-        Task Create(TEntity entity);
+        void Create(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
         Task SaveChanges();
