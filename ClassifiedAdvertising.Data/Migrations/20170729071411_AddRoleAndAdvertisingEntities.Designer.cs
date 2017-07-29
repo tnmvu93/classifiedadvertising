@@ -11,9 +11,10 @@ using System;
 namespace ClassifiedAdvertising.Data.Migrations
 {
     [DbContext(typeof(ClassifiedAdvertisingDbContext))]
-    partial class ClassifiedAdvertisingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170729071411_AddRoleAndAdvertisingEntities")]
+    partial class AddRoleAndAdvertisingEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

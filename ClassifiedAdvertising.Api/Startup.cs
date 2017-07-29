@@ -21,8 +21,7 @@ namespace ClassifiedAdvertising.Api
         {
             services.AddDbContext<ClassifiedAdvertisingDbContext>(options =>
                 {
-                    options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
-                        x => x.MigrationsAssembly("ClassifiedAdvertising.Data"));
+                    options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
                 }
             );
 

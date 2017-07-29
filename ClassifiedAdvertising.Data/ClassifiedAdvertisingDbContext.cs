@@ -1,13 +1,17 @@
 ﻿using ClassifiedAdvertising.Data.Entities;
+using ClassifiedAdvertising.Data.Entities.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace ClassifiedAdvertising.Data
 {
     public class ClassifiedAdvertisingDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<TypeAdvertising> TypeAdvertisings { get; set; }
+        public DbSet<Advertising> Advertisings { get; set; }
 
         public ClassifiedAdvertisingDbContext(DbContextOptions<ClassifiedAdvertisingDbContext> options) 
             : base(options)
@@ -19,7 +23,18 @@ namespace ClassifiedAdvertising.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().ToTable("Users");
+            new UserConfiguration(modelBuilder.Entity<User>());
+        }
+    }
+
+    public class ClassifiedAdvertisingDbContextFactory : IDesignTimeDbContextFactory<ClassifiedAdvertisingDbContext>
+    {
+        public ClassifiedAdvertisingDbContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<ClassifiedAdvertisingDbContext>();
+            builder.UseSqlServer("Server=.\\SQLEXPRESS;Database=ClassifiedAdvertising;Trusted_Connection=True;");
+
+            return new ClassifiedAdvertisingDbContext(builder.Options);
         }
     }
 }
