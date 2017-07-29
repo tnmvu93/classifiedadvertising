@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ClassifiedAdvertising.Data.BaseRepository
+namespace ClassifiedAdvertising.Data.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {
