@@ -1,6 +1,8 @@
-﻿using ClassifiedAdvertising.Data;
+﻿using AutoMapper;
+using ClassifiedAdvertising.Data;
 using ClassifiedAdvertising.Data.Repositories;
 using ClassifiedAdvertising.Data.Repositories.Implementations;
+using ClassifiedAdvertising.Service.Mappings;
 using ClassifiedAdvertising.Service.Services;
 using ClassifiedAdvertising.Service.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +38,10 @@ namespace ClassifiedAdvertising.Api
                     options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
                 }
             );
+
+            // Register Automapper manually
+            services.AddAutoMapper();
+            AutoMapperConfiguration.Configure();
 
             // Repositories
             services.AddTransient<IUserRepository, UserRepository>();
