@@ -1,0 +1,13 @@
+<h2>My Users</h2>
+<div>
+  <label>Email:</label><input #userEmail />
+  <label>Name:</label><input #userName />
+  <button (click)="add(userEmail.value, userName.value); userEmail.value=''; userName.value=''">
+    Add
+  </button>
+  <ul>
+    <li *ngFor="let user of users">
+      <span>{{user.id}}</span>
+    </li>
+  </ul>
+</div>
