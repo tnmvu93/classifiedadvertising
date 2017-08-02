@@ -6,7 +6,7 @@ namespace ClassifiedAdvertising.Service.Services
 {
     public interface IUserService
     {
-        User GetUserById(int id);
-        Task CreateUser(CreateUserDto user);
+        Task<User> GetUserByIdAsync(int id);
+        Task<UserDto> CreateUserAsync(CreateUserDto user);
     }
 }

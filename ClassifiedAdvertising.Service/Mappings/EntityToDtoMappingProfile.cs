@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ClassifiedAdvertising.Data.Entities;
+using ClassifiedAdvertising.Service.Dtos;
 
 namespace ClassifiedAdvertising.Service.Mappings
 {
@@ -6,7 +8,7 @@ namespace ClassifiedAdvertising.Service.Mappings
     {
         public EntityToDtoMappingProfile()
         {
-
+            CreateMap<User, UserDto>();
         }
     }
 }

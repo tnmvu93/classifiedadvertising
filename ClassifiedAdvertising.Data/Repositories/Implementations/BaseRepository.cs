@@ -14,26 +14,21 @@ namespace ClassifiedAdvertising.Data.Repositories.Implementations
             _dbContext = dbContext;
         }
 
-        public void Create(TEntity entity)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            _dbContext.Set<TEntity>().AddAsync(entity);
+            var entity = await _dbContext.Set<TEntity>().FindAsync(id);
+            return entity;
         }
 
-        public void Delete(TEntity entity)
-        {
-            _dbContext.Set<TEntity>().Remove(entity);
-        }
-
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> Query()
         {
             var list = _dbContext.Set<TEntity>().AsQueryable();
             return list;
         }
 
-        public async Task<TEntity> GetById(int id)
+        public void Create(TEntity entity)
         {
-            var entity = await _dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
-            return entity;
+            _dbContext.Set<TEntity>().Add(entity);
         }
 
         public void Update(TEntity entity)
@@ -41,7 +36,12 @@ namespace ClassifiedAdvertising.Data.Repositories.Implementations
             _dbContext.Set<TEntity>().Update(entity);
         }
 
-        public async Task SaveChanges()
+        public void Delete(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Remove(entity);
+        }
+
+        public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();
         }

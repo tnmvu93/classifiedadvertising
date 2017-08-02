@@ -17,9 +17,9 @@ namespace ClassifiedAdvertising.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetUser([FromRoute]int id)
+        public async Task<ActionResult> GetUser([FromRoute]int id)
         {
-            var user = _userService.GetUserById(id);
+            var user = await _userService.GetUserByIdAsync(id);
 
             if (user == null)
             {
@@ -36,9 +36,9 @@ namespace ClassifiedAdvertising.Api.Controllers
                 return BadRequest();
             }
 
-            await _userService.CreateUser(user);
+            var result = await _userService.CreateUserAsync(user);
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

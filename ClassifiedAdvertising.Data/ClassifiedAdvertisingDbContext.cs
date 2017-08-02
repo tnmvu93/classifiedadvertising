@@ -32,7 +32,8 @@ namespace ClassifiedAdvertising.Data
         public ClassifiedAdvertisingDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ClassifiedAdvertisingDbContext>();
-            builder.UseSqlServer("Server=.\\SQLEXPRESS;Database=ClassifiedAdvertising;Trusted_Connection=True;");
+            //builder.UseSqlServer("Server=.\\SQLEXPRESS;Database=ClassifiedAdvertising;Trusted_Connection=True;");
+            builder.UseSqlServer("Server=HSSSC1PCL02096\\SQL2014;Database=ClassifiedAdvertising;Trusted_Connection=True;");
 
             return new ClassifiedAdvertisingDbContext(builder.Options);
         }

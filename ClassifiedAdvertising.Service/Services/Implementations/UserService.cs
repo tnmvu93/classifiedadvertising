@@ -17,18 +17,21 @@ namespace ClassifiedAdvertising.Service.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task CreateUser(CreateUserDto userDto)
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            var user = _mapper.Map<User>(userDto);
-            
-            _userRepository.Create(user);
-            await _userRepository.SaveChanges();
+            var user = await _userRepository.GetByIdAsync(id);
+            return user;
         }
 
-        public User GetUserById(int id)
+        public async Task<UserDto> CreateUserAsync(CreateUserDto createUserDto)
         {
-            var result = _userRepository.GetById(id);
-            return result.Result;
-        }
+            var user = _mapper.Map<User>(createUserDto);
+            
+            _userRepository.Create(user);
+            await _userRepository.SaveChangesAsync();
+
+            var userDto = _mapper.Map<UserDto>(user);
+            return userDto;
+        }        
     }
 }
