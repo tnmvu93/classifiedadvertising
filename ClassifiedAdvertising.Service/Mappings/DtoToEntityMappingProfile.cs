@@ -8,7 +8,8 @@ namespace ClassifiedAdvertising.Service.Mappings
     {
         public DtoToEntityMappingProfile()
         {
-            CreateMap<CreateUserDto, User>();
+            CreateMap<CreateUserDto, User>()
+                .ForMember(u => u.UserName, exp => exp.MapFrom(cu => cu.Email));
         }
     }
 }

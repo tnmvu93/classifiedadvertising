@@ -30,7 +30,7 @@ namespace ClassifiedAdvertising.Api.Controllers
 
             var errors = await _authenticationService.RegisterUserAsync(user);
 
-            if (errors != null)
+            if (errors?.Count > 0)
             {
                 foreach (var error in errors)
                 {
