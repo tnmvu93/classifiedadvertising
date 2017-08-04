@@ -1,45 +1,40 @@
-import { Injectable }           from '@angular/core';
-import { Headers, Http }        from '@angular/http';
-
-import 'rxjs/add/operator/toPromise';
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { User }                 from './user';
 
 @Injectable()
 export class UserService {
-
-    private headers = new Headers({'Content-Type': 'application/json'});
+    
     private usersUrl = 'http://localhost:50895/api/users';
+    private jwt() {
+        // create authorization header with jwt token
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+            return new RequestOptions({ headers: headers });
+        }
+    }
 
     constructor(private http: Http) { }
 
-    getUsers(): Promise<User[]> {
-        return this.http.get(this.usersUrl)
-                    .toPromise()
-                    .then(response => response.json().data as User[])
-                    .catch(this.handleError);
+    getAll() {
+        return this.http.get(this.usersUrl, this.jwt()).map((response: Response) => response.json());
     }
 
-    getUser(id: number): Promise<User> {
-        const url = `${this.usersUrl}/${id}`;
-        return this.http.get(url)
-                    .toPromise()
-                    .then(response => response.json().data as User)
-                    .catch(this.handleError);
+    getById(id: number) {
+        return this.http.get(this.usersUrl + '/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    create(email: string, name: string): Promise<User> {
-        return this.http
-            .post(this.usersUrl
-                , JSON.stringify({email: email, name: name})
-                , { headers: this.headers })
-            .toPromise()
-            .then(response => response.json().data as User)
-            .catch(this.handleError);
+    create(user: User) {
+        return this.http.post(this.usersUrl, this.jwt()).map((response: Response) => response.json());
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred: ', error);
-        return Promise.reject(error.message || error);
+    update(user: User) {
+        return this.http.put(this.usersUrl + '/' + user.id, user, this.jwt()).map((response: Response) => response.json());
+    }
+ 
+    delete(id: number) {
+        return this.http.delete(this.usersUrl + '/' + id, this.jwt()).map((response: Response) => response.json());
     }
 }
