@@ -7,7 +7,6 @@ namespace ClassifiedAdvertising.Data.Entities.Configurations
     {
         public UserConfiguration(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Users");
             builder.Property(x => x.Email).IsRequired();
         }
     }

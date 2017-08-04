@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace ClassifiedAdvertising.Data.Entities
 {
-    public class Role : BaseEntity
+    public class Role : IdentityRole<int, UserRole, IdentityRoleClaim<int>>, IBaseEntity
     {
-        public string Name { get; set; }
-
-        public List<UserRole> Roles { get; set; }
+        public IList<UserRole> Users { get; set; } = new List<UserRole>();
     }
 }

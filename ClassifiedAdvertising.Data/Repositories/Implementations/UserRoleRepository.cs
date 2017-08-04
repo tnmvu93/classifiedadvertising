@@ -1,13 +1,13 @@
-﻿using ClassifiedAdvertising.Data.Entities;
+﻿//using ClassifiedAdvertising.Data.Entities;
 
-namespace ClassifiedAdvertising.Data.Repositories.Implementations
-{
-    public class UserRoleRepository : BaseRepository<UserRole>, IUserRoleRepository
-    {
-        public UserRoleRepository(ClassifiedAdvertisingDbContext dbContext)
-            : base(dbContext)
-        {
+//namespace ClassifiedAdvertising.Data.Repositories.Implementations
+//{
+//    public class UserRoleRepository : BaseRepository<UserRole>, IUserRoleRepository
+//    {
+//        public UserRoleRepository(ClassifiedAdvertisingDbContext dbContext)
+//            : base(dbContext)
+//        {
 
-        }
-    }
-}
+//        }
+//    }
+//}

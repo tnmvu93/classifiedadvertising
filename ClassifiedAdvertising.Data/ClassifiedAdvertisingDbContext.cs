@@ -1,15 +1,14 @@
 ﻿using ClassifiedAdvertising.Data.Entities;
 using ClassifiedAdvertising.Data.Entities.Configurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace ClassifiedAdvertising.Data
 {
-    public class ClassifiedAdvertisingDbContext : DbContext
+    public class ClassifiedAdvertisingDbContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<TypeAdvertising> TypeAdvertisings { get; set; }
         public DbSet<Advertising> Advertisings { get; set; }
 
@@ -24,6 +23,8 @@ namespace ClassifiedAdvertising.Data
             base.OnModelCreating(modelBuilder);
 
             new UserConfiguration(modelBuilder.Entity<User>());
+
+            modelBuilder.Entity<UserRole>().HasKey(x => new { x.UserId, x.RoleId });
         }
     }
 

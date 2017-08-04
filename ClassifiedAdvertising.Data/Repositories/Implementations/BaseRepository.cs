@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ClassifiedAdvertising.Data.Repositories.Implementations
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
     {
         protected readonly ClassifiedAdvertisingDbContext _dbContext;
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ClassifiedAdvertising.Data.Repositories
 {
-    public interface IBaseRepository<TEntity> where TEntity : BaseEntity
+    public interface IBaseRepository<TEntity> where TEntity : class, IBaseEntity
     {
         Task<TEntity> GetByIdAsync(int id);
         IQueryable<TEntity> Query();
