@@ -9,6 +9,7 @@ import { UserService }        from './user.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  model: any = {};
   users: User[];
 
   constructor(
@@ -16,17 +17,14 @@ export class UsersComponent implements OnInit {
   ) { }
 
   getUsers(): void {
-    this.userService
-        .getUsers()
-        .then(users => this.users = users);
+    this.userService.getAll()
+        .subscribe(data => this.users = data);
   }
 
   add(email: string, name: string): void {
-    email = email.trim();
-    name = name.trim();
     if (!name || !email) { return; }
-    this.userService.create(email, name)
-        .then(user => {
+    this.userService.create(this.model)
+        .subscribe(user => {
           this.users.push(user);
         });
   }
