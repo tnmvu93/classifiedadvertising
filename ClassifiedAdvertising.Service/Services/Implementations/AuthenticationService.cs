@@ -2,7 +2,7 @@
 using ClassifiedAdvertising.Data.Entities;
 using ClassifiedAdvertising.Data.Repositories;
 using ClassifiedAdvertising.Service.Dtos;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,18 +26,16 @@ namespace ClassifiedAdvertising.Service.Services.Implementations
             return result;
         }
 
-        public async Task<Dictionary<string, string>> RegisterUserAsync(CreateUserDto dto)
+        public async Task<List<string>> RegisterUserAsync(CreateUserDto dto)
         {
             var user = _mapper.Map<User>(dto);
             var result = await _authenticationRepository.RegisterUserAsync(user, dto.Password);
 
-            var errors = new Dictionary<string, string>();
+            var errors = new List<string>();
+
             if (!result.Succeeded)
             {
-                foreach (var error in result.Errors)
-                {
-                    errors.Add(error.Code, error.Description);
-                }
+                errors = result.Errors.Select(x => x.Description).ToList();
             }
 
             return errors;

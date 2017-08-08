@@ -3,7 +3,9 @@ using ClassifiedAdvertising.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ClassifiedAdvertising.Api.Controllers
 {
@@ -21,23 +23,26 @@ namespace ClassifiedAdvertising.Api.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> RegisterAsync(CreateUserDto user)
+        public async Task<IActionResult> RegisterAsync([FromBody]CreateUserDto user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var errors = await _authenticationService.RegisterUserAsync(user);
-
-            if (errors?.Count > 0)
+            try
             {
-                foreach (var error in errors)
+                var errors = await _authenticationService.RegisterUserAsync(user);
+                if (errors.Count > 0)
                 {
-                    ModelState.AddModelError(error.Key, error.Value);
+                    return BadRequest(errors);
                 }
-                return BadRequest(errors);
             }
+            catch (Exception e)
+            {
+                var test = e;
+            }
+
             return Ok();
         }
     }

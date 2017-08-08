@@ -7,6 +7,7 @@ import { User }                 from './user';
 export class UserService {
     
     private usersUrl = 'http://localhost:50895/api/users';
+    private accountUrl = 'http://localhost:50895/api/Account';
     private jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -27,7 +28,7 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post(this.usersUrl, this.jwt()).map((response: Response) => response.json());
+        return this.http.post(this.accountUrl + '/Register', user, this.jwt()).map((response: Response) => response.json());
     }
 
     update(user: User) {
